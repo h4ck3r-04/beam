@@ -1,5 +1,7 @@
 # Beam
 
+![](/assets/Background.png)
+
 ## Introduction
 
 A fast, ergonomic, and reliable productivity launcher packed with powerful tools. Seamlessly integrated and highly customizable, this app enhances your workflow with an extendable interface, giving you quick access to everything you need.
