@@ -1,8 +1,8 @@
 {
   "name": "beam",
-  "productName": "beam",
+  "productName": "Beam",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "A fast, customizable productivity launcher.",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -28,7 +28,7 @@
     "name": "h4ck3r-04",
     "email": "mr.rudradityathakur@gmail.com"
   },
-  "license": "MIT",
+  "license": "GPL-3.0 license",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1"
   }
