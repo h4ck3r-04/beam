@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Beam</title>
@@ -10,8 +10,106 @@
     <div class="app-container">
       <div class="input-container">
         <i class="ti ti-search"></i>
-        <input type="text" class="input" placeholder="Text Input">
-      </div> 
+        <input type="text" class="input" placeholder="Search tasks..." oninput="search_item()">
+      </div>
+
+      <div class="section-container" id="suggestions-section">
+        <p id="suggestions-title">Suggestions</p>
+        <ul class="list" id="suggestions-list">
+        </ul>
+      </div>
+
+      <div class="section-container" id="recents-section">
+        <p id="recents-title">Recents</p>
+        <ul class="list" id="recents-list">
+        </ul>
+      </div>
+
+      <div class="section-container" id="notes-section">
+        <p id="notes-title">Notes</p>
+        <ul class="list" id="notes-list">
+        </ul>
+      </div>
+
+      <div id="not-found" class="not-found-container" style="display: none;">
+        <p>No tasks found in any section</p>
+      </div>
     </div>
   </body>
+
+  <script>
+    const suggestions = ["Task 1", "Task 2", "Task 3"];
+    const recents = ["Recent Task 1", "Recent Task 2"];
+    const notes = ["Note 1", "Note 2", "Note 3"];
+
+    function loadSections() {
+      loadSection("suggestions", suggestions);
+      loadSection("recents", recents);
+      loadSection("notes", notes);
+    }
+
+    function loadSection(sectionName, items) {
+      const sectionList = document.getElementById(`${sectionName}-list`);
+      const sectionContainer = document.getElementById(`${sectionName}-section`);
+      const notFound = document.getElementById("not-found");
+
+      sectionList.innerHTML = '';
+
+      if (items.length > 0) {
+        items.forEach(item => {
+          const li = document.createElement('li');
+          li.className = 'items';
+          li.textContent = item;
+          sectionList.appendChild(li);
+        });
+
+        sectionContainer.style.display = 'block';
+      } else {
+        sectionContainer.style.display = 'none';
+      }
+
+      checkNotFound();
+    }
+
+    function checkNotFound() {
+      const sections = document.querySelectorAll('.section-container');
+      let allEmpty = true;
+
+      sections.forEach(section => {
+        const sectionList = section.querySelector('.list');
+        const sectionTitle = section.querySelector('p');
+
+        if (sectionList && sectionList.children.length > 0) {
+          allEmpty = false;
+          sectionTitle.style.display = 'block';
+        } else {
+          sectionTitle.style.display = 'none';
+        }
+      });
+
+      const notFound = document.getElementById("not-found");
+      if (allEmpty) {
+        notFound.style.display = 'flex';
+      } else {
+        notFound.style.display = 'none';
+      }
+    }
+
+    function search_item() {
+      let input = document.querySelector('.input').value.toLowerCase();
+      let items = document.querySelectorAll('.items');
+
+      items.forEach(item => {
+        if (!item.textContent.toLowerCase().includes(input)) {
+          item.style.display = "none";
+        } else {
+          item.style.display = "list-item";
+        }
+      });
+
+      checkNotFound();
+    }
+
+    window.onload = loadSections;
+  </script>
 </html>

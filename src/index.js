@@ -31,6 +31,10 @@ function createWindow() {
   win.on('blur', () => {
     win.hide();
   });
+
+  globalShortcut.register('Escape', () => {
+    win.hide();
+  });
 }
 
 function setupGlobalShortcut() {

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600;700&display=swap');
 
 :root {
   --foreground: #ededed;
@@ -7,18 +7,21 @@
 }
 
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: var(--font-family);
   color: var(--foreground);
   font-size: var(--font-size);
 }
 
 body, html {
-  margin: 0;
-  padding: 0;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start;
+  flex-direction: column;
   overflow: hidden;
 }
 
@@ -26,8 +29,17 @@ body, html {
   background: rgba(0, 0, 0, 0.738);
   backdrop-filter: blur(200px);
   -webkit-backdrop-filter: blur(200px);
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
+  padding: 10px 15px;
+  overflow-y: auto;
+}
+
+p {
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.7;
 }
 
 .input-container {
@@ -35,28 +47,26 @@ body, html {
   width: 100%;
   height: 40px;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  padding: 2px 10px;
-  border-bottom: 0.1px solid var(--foreground);
+  padding: 2px 4px;
+  border-bottom: 0.2px solid var(--foreground);
+  margin-bottom: 15px;
 }
 
 .input-container i {
   margin-right: 8px;
+  font-size: 20px;
+  color: var(--foreground);
 }
 
 .input {
   background: transparent;
   border: none;
-  width: 90%;
-  padding: 0 8px;
-  outline: none;
-}
-
-.input:focus {
+  width: 100%;
+  padding: 0 5px;
   outline: none;
   color: var(--foreground);
+  font-size: inherit;
 }
 
 .input::placeholder {
@@ -64,3 +74,39 @@ body, html {
   opacity: 0.7;
 }
 
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.items {
+  list-style: none;
+  margin-bottom: 2px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    -o-transform: translateY(-2px);
+}
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.not-found-container {
+  display: none;
+  text-align: center;
+  color: var(--foreground);
+  font-size: 16px;
+  margin-top: 20px;
+}
