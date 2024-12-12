@@ -32,7 +32,7 @@
       </div>
 
       <div id="not-found" class="not-found-container" style="display: none;">
-        <p>No tasks found in any section</p>
+        <p>No results found in any section</p>
       </div>
     </div>
   </body>
@@ -51,7 +51,7 @@
     function loadSection(sectionName, items) {
       const sectionList = document.getElementById(`${sectionName}-list`);
       const sectionContainer = document.getElementById(`${sectionName}-section`);
-      const notFound = document.getElementById("not-found");
+      const sectionTitle = document.getElementById(`${sectionName}-title`);
 
       sectionList.innerHTML = '';
 
@@ -64,9 +64,42 @@
         });
 
         sectionContainer.style.display = 'block';
+        sectionTitle.style.display = 'block';
       } else {
         sectionContainer.style.display = 'none';
+        sectionTitle.style.display = 'none';
       }
+
+      checkNotFound();
+    }
+
+    function search_item() {
+      let input = document.querySelector('.input').value.toLowerCase();
+      let sections = ['suggestions', 'recents', 'notes'];
+
+      sections.forEach(sectionName => {
+        const sectionList = document.getElementById(`${sectionName}-list`);
+        const sectionContainer = document.getElementById(`${sectionName}-section`);
+        const sectionTitle = document.getElementById(`${sectionName}-title`);
+        let visibleItemsCount = 0;
+
+        Array.from(sectionList.children).forEach(item => {
+          if (!item.textContent.toLowerCase().includes(input)) {
+            item.style.display = "none";
+          } else {
+            item.style.display = "list-item";
+            visibleItemsCount++;
+          }
+        });
+
+        if (visibleItemsCount === 0) {
+          sectionContainer.style.display = 'none';
+          sectionTitle.style.display = 'none';
+        } else {
+          sectionContainer.style.display = 'block';
+          sectionTitle.style.display = 'block';
+        }
+      });
 
       checkNotFound();
     }
@@ -77,13 +110,9 @@
 
       sections.forEach(section => {
         const sectionList = section.querySelector('.list');
-        const sectionTitle = section.querySelector('p');
-
-        if (sectionList && sectionList.children.length > 0) {
+        const visibleItems = Array.from(sectionList.children).filter(item => item.style.display !== 'none');
+        if (visibleItems.length > 0) {
           allEmpty = false;
-          sectionTitle.style.display = 'block';
-        } else {
-          sectionTitle.style.display = 'none';
         }
       });
 
@@ -93,21 +122,6 @@
       } else {
         notFound.style.display = 'none';
       }
-    }
-
-    function search_item() {
-      let input = document.querySelector('.input').value.toLowerCase();
-      let items = document.querySelectorAll('.items');
-
-      items.forEach(item => {
-        if (!item.textContent.toLowerCase().includes(input)) {
-          item.style.display = "none";
-        } else {
-          item.style.display = "list-item";
-        }
-      });
-
-      checkNotFound();
     }
 
     window.onload = loadSections;
