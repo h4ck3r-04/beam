@@ -110,3 +110,13 @@ p {
   font-size: 16px;
   margin-top: 20px;
 }
+
+.bento-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bento-grid p {
+  text-align: left;
+}
